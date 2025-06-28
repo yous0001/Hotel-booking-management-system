@@ -44,13 +44,11 @@ export const generateVerificationEmail = ({ name, email, verificationLink }) => 
                 color: #ffffff;
                 font-size: 24px;
                 font-weight: bold;
-                width: 72px;
-                height: 72px;
+                padding: 10px 20px;
                 border-radius: 50%;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 24px;
+                margin: 0 auto 24px;
+                text-align: center;
+                width:fit-content;
             }
             
             .title {
@@ -86,7 +84,7 @@ export const generateVerificationEmail = ({ name, email, verificationLink }) => 
                 max-width: 280px;
                 padding: 16px;
                 background-color: #000000;
-                color: #ffffff;
+                color: #ffffff !important;
                 text-decoration: none;
                 border-radius: 10px;
                 font-weight: 500;

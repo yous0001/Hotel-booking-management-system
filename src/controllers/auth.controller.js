@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs"
 import sendmailservice from './../services/sendMail.js';
 import { generateVerificationEmail } from './../utils/emailTemplates.js';
+import { createVerificationToken } from "../services/user.services.js";
 
 export const register=async(req,res,next)=>{
     const {name,email,password}=req.body
