@@ -1,11 +1,7 @@
 import nodemailer from "nodemailer"
 import { config } from "dotenv";
 
-if (process.env.NODE_ENV !== 'production') {
-    config({ path: './config/dev.env' });
-}
-
-
+config()
 const sendmailservice=async({ to = '', subject = 'no-reply', message = '<h1>Hello World</h1>', attachments = [] })=>{
     const transporter=nodemailer.createTransport({
         host:'localhost',

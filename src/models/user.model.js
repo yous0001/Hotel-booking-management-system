@@ -1,4 +1,3 @@
-import { PhoneNumber } from "@clerk/express";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
