@@ -1,4 +1,3 @@
-import { PhoneNumber } from "@clerk/express";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -20,8 +19,7 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     PhoneNumber:{
-        type:String,
-        required: true
+        type:String
     },
     Address:{
         city: {
