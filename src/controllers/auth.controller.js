@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs"
 import sendmailservice from './../services/sendMail.js';
+import { generateVerificationEmail } from './../utils/emailTemplates.js';
 
 export const register=async(req,res,next)=>{
     const {name,email,password}=req.body
@@ -16,7 +17,11 @@ export const register=async(req,res,next)=>{
     const isEmailSent=await sendmailservice({
         to:user.email,
         subject:"Verify your email",
-        message:`<a href="http://localhost:3000/verify/${verificationToken}">Verify your email</a>`
+        message:generateVerificationEmail({
+            name,
+            email,
+            verificationLink:`http://localhost:3000/verify/${verificationToken}`
+        })
     })
     if(!isEmailSent){
         return res.status(500).json({message:"Email not sent"})
