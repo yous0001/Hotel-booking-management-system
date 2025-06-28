@@ -7,6 +7,6 @@ import * as userValidator from "../validators/user.validator.js"
 const router= Router();
 
 router.post("/register",validationMiddleware(userValidator.registerSchema),authController.register)
-
+router.get("/verify/:token",authController.verifyEmail)
 
 export default router

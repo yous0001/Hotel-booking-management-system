@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import sendmailservice from './../services/sendMail.js';
 import { generateVerificationEmail } from './../utils/emailTemplates.js';
 import { createVerificationToken } from "../services/user.services.js";
+import jwt  from 'jsonwebtoken';
 
 export const register=async(req,res,next)=>{
     const {name,email,password}=req.body
@@ -21,7 +22,7 @@ export const register=async(req,res,next)=>{
         message:generateVerificationEmail({
             name,
             email,
-            verificationLink:`http://localhost:3000/verify/${verificationToken}`
+            verificationLink:`${process.env.CLIENT_URL}/auth/verify/${verificationToken}`
         })
     })
     if(!isEmailSent){
@@ -30,4 +31,30 @@ export const register=async(req,res,next)=>{
     await user.save()
     res.status(201).json({message:"User created successfully"})
 
+}
+
+export const verifyEmail=async(req,res,next)=>{
+    const {token}=req.params
+
+    if(!token){
+        return res.status(400).json({message:"Token is required"})
+    }
+
+    const decodedToken=jwt.verify(token,process.env.JWT_VERIFICATION_SECRET_KEY)
+    
+    if(!decodedToken||!decodedToken.id){
+        return res.status(400).json({message:"Invalid token"})
+    }
+
+    const user=await User.findById(decodedToken.id)
+    if(!user){
+        return res.status(400).json({message:"user not found"})
+    }
+    if(user.isEmailVerified){
+        return res.status(400).json({message:"Email already verified"})
+    }
+
+    user.isEmailVerified=true
+    await user.save()
+    res.status(200).json({message:"Email verified successfully"})
 }
