@@ -1,4 +1,3 @@
-import { User } from "./user.services";
 import jwt from "jsonwebtoken";
 
 export const createVerificationToken = (user) => {
