@@ -9,3 +9,7 @@ export const createAccessToken = (user) => {
     const accessToken=jwt.sign({id:user._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
     return accessToken
 };
+export const createRefreshToken = (user) => {
+    const refreshToken=jwt.sign({id:user._id},process.env.JWT_SECRET_KEY_Refresh,{expiresIn:"1w"})
+    return refreshToken
+};

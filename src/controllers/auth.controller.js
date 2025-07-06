@@ -4,6 +4,7 @@ import sendmailservice from "./../services/sendMail.js";
 import { generateVerificationEmail } from "./../utils/emailTemplates.js";
 import {
   createAccessToken,
+  createRefreshToken,
   createVerificationToken,
 } from "../services/user.services.js";
 import jwt from "jsonwebtoken";
@@ -78,6 +79,7 @@ export const signIn = async (req, res, next) => {
   }
 
   const acessToken = createAccessToken(userExist);
+  const refreshToken = createRefreshToken(userExist);
 
-  return res.status(201).json({ message: "Done", acessToken });
+  return res.status(201).json({ message: "Done", acessToken  , refreshToken});
 };
