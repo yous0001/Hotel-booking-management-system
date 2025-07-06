@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import cors from "cors";
@@ -13,29 +14,28 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
-    res.send("Welcome to our hotel API.");
+  res.send("Welcome to our hotel API.");
 });
+
 
 // API routes
 app.use("/auth", authRoutes);
 
 
 app.use((req, res) => {
-    res.status(404).json({
-        message: "❌ Route not found",
-        statusCode: 404,
-    });
+  res.status(404).json({
+    message: "❌ Route not found",
+    statusCode: 404,
+  });
 });
 
 app.use(globalResponse);
 
-
 db_connection();
 
-
 app.listen(port, () => {
-    console.log(chalk.bgGreen(`Server is running on port ${port}`));
+  console.log(chalk.bgGreen(`Server is running on port ${port}`));
 });

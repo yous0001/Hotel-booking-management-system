@@ -80,6 +80,17 @@ export const signIn = async (req, res, next) => {
 
   const acessToken = createAccessToken(userExist);
   const refreshToken = createRefreshToken(userExist);
+  res.cookie("token", acessToken, {
+    httpOnly: true, 
+    secure: process.env.NODE_ENV === "production", 
+    sameSite: "strict", 
+  });
 
-  return res.status(201).json({ message: "Done", acessToken  , refreshToken});
+  return res.status(201).json({ message: "Logged in Successfully", acessToken, refreshToken });
 };
+
+
+export const logOut =  (req, res , next) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logged out' });
+}
