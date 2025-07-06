@@ -8,5 +8,6 @@ const router= Router();
 
 router.post("/register",validationMiddleware(userValidator.registerSchema),authController.register)
 router.get("/verify/:token",authController.verifyEmail)
+router.get("/signIn" , authController.signIn)
 
 export default router
